@@ -1,8 +1,6 @@
 import dotenv from "dotenv";
 import app from "./app";
-import { connectMongo } from "./db/mongodb/mongodb";
-import { connectMysql } from "./db/mysql/mysql";
-import { connectPostgres } from "./db/postgres/postgres";
+import { connectDataSource } from "./config/data-source";
 import { initAuth } from "./utils/initAuth";
 
 // ENV CONFIG
@@ -17,9 +15,11 @@ const port = process.env.PORT || 5000;
 const start = async () => {
   try {
     // DB connection here... 🩸🩸🩸
-    await connectMysql();
-    await connectPostgres();
-    await connectMongo();
+    // await connectMysql();
+    // await connectPostgres();
+    // await connectMongo();
+
+    await connectDataSource();
     initAuth(process.env.AUTH_MODE as string, app);
     app.listen(port, () => {
       console.log("Server started at " + port + " and connected to DB !!");
