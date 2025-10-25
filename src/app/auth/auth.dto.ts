@@ -1,11 +1,11 @@
-import { SafeUserDTO, User } from "../../dto/user.dto";
+import { SafeUserDTO, User } from '../../dto/user.dto'
 
 // 🔵 Incoming request DTOs
-export type RegisterDTO = Pick<User, "username" | "email" | "password">;
-export type LoginDTO = Pick<User, "email" | "password">;
+export type RegisterDTO = Pick<User, 'username' | 'email' | 'password'>
+export type LoginDTO = Pick<User, 'email' | 'password'>
 
 // 🟢 Outgoing response DTOs
-export type CurrentUserDTO = SafeUserDTO;
+export type CurrentUserDTO = SafeUserDTO
 
 // old way 🩸
 // // export type CurrentUserResponseDTO = ResponseDTO<{ cookie?: string }>;
