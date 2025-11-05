@@ -1,23 +1,12 @@
 // IMPORTS
-import cors from 'cors'
 import express, { Request, Response } from 'express'
-import Error404 from './middlewares/404'
-import Exception from './middlewares/Exception'
+import { BottomMiddlewares } from './middlewares/Bottom'
+import { TopMiddlewares } from './middlewares/Top'
 
 const app = express()
 
 // TOP MIDDLEWARES
-app.use(
-    cors({
-        origin: '*',
-        methods: ['GET', 'POST', 'PATCH', 'DELETE'],
-        allowedHeaders: ['Content-Type', 'Authorization'],
-        credentials: true,
-    })
-)
-app.use(express.json())
-app.use(express.static('./public'))
-app.use(express.urlencoded({ extended: true }))
+TopMiddlewares.forEach((mw) => app.use(mw))
 
 // ROUTES
 app.get('/', (req: Request, res: Response) => {
@@ -32,7 +21,5 @@ app.use('/api/v1/contact', () => {})
 app.use('/api/v1/users', () => {})
 
 // BOTTOM MIDDLEWARES
-app.use(Error404)
-app.use(Exception)
-
+BottomMiddlewares.forEach((mw) => app.use(mw))
 export default app
